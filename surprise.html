@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="surprise-page">
+    <header class="header">
+        <div class="header-image-container">
+            <img src="images/souvenirs.webp" alt="Floral Header">
+            <div class="text-overlay">Quelques souvenirs</div>
+        </div>
+    </header>
+
+    <!-- Musique -->
+    <audio controls autoplay>
+        <source src="musique.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas la lecture audio.
+    </audio>
+
+    <!-- Panneau déroulant pour les photos -->
+    <div class="carousel-container">
+        <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
+        <div class="carousel">
+            <div class="image-wrapper">
+                <img src="images/IMG_6781.jpg" alt="Photo 1" onclick="openLightbox(this.src)">
+                <div class="clickable-overlay">
+                    <span class="icon">&#128269;</span> <!-- Icône de loupe -->
+                    <p>Agrandir</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel">
+            <div class="image-wrapper">
+                <img src="images/IMG_6788.jpg" alt="Photo 2" onclick="openLightbox(this.src)">
+                <div class="clickable-overlay">
+                    <span class="icon">&#128269;</span>
+                    <p>Agrandir</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel">
+            <div class="image-wrapper">
+                <img src="images/IMG_6793.jpg" alt="Photo 3" onclick="openLightbox(this.src)">
+                <div class="clickable-overlay">
+                    <span class="icon">&#128269;</span>
+                    <p>Agrandir</p>
+                </div>
+            </div>
+        </div>
+        <button class="next" onclick="moveCarousel(1)">&#10095;</button>
+    </div>
+
+    <!-- Lightbox pour les images en plein écran -->
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- Insertion du script JavaScript -->
+    <script>
+        let index = 0;
+
+        function moveCarousel(direction) {
+            const carousel = document.querySelectorAll('.carousel');
+            const totalImages = carousel.length;
+
+            // On met à jour l'index pour afficher la bonne image
+            index = (index + direction + totalImages) % totalImages;
+
+            // On cache toutes les images puis on affiche seulement la bonne
+            carousel.forEach((item, idx) => {
+                item.style.display = (idx === index) ? 'block' : 'none';
+            });
+        }
+
+        // Fonction pour ouvrir l'image en plein écran
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = src;  // Met à jour la source de l'image dans la lightbox
+            lightbox.style.display = 'block';  // Affiche la lightbox
+        }
+
+        // Fonction pour fermer la lightbox
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';  // Cache la lightbox
+        }
+        
+        // Initialiser le carrousel pour afficher seulement la première image
+        moveCarousel(0); // Afficher la première image par défaut
+    </script>
+
+</body>
+</html>

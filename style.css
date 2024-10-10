@@ -1,0 +1,211 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fce4ec; /* Rose poudré pâle */
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+}
+
+.image-container img {
+    width: 300px;  /* Taille de l'image ajustable */
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* Style pour le conteneur du carousel */
+.carousel-container {
+    position: relative;
+    width: 500px;  /* Limite la largeur à une seule image visible */
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+}
+
+/* Style pour le carousel */
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Style pour les images */
+.carousel img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+}
+
+/* Style pour les boutons de navigation */
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 24px;
+    z-index: 1;
+}
+
+/* Style pour le bouton précédent */
+button.prev {
+    left: 10px;
+}
+
+/* Style pour le bouton suivant */
+button.next {
+    right: 10px;
+}
+
+/* Style au survol des boutons */
+button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Style général pour la page */
+#surprise-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* On ne centre plus en hauteur */
+    align-items: center;
+    min-height: 100vh; /* Ajuste pour que le contenu prenne au moins toute la hauteur de la page */
+    margin: 0;
+    background-color: #fce4ec;  /* Rose poudré pâle */
+}
+
+/* Style spécifique pour l'image d'en-tête de la page "surprise" */
+.header-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;  /* Taille ajustée à 35% de la largeur */
+    margin: 0 auto;  /* Centre horizontalement */
+    padding-top: 20px;  /* Ajoute un peu d'espace au-dessus */
+}
+
+/* Assure que l'image prend la largeur disponible dans son conteneur */
+.header-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;  /* Pas de bordures rondes pour l'en-tête */
+}
+
+/* Texte superposé */
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);  /* Légère transparence pour lisibilité */
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+/* Media queries pour les petits écrans (téléphones) */
+@media screen and (max-width: 768px) {
+    /* Réduire la taille de l'image d'en-tête */
+    .header-image-container {
+        width: 80%;  /* L'image prend plus de largeur sur petits écrans */
+    }
+
+    /* Réduire la taille du carousel */
+    .carousel-container {
+        width: 250px;  /* Réduit la largeur du carousel sur les petits écrans */
+    }
+
+    /* Ajuster la taille des boutons */
+    button {
+        padding: 8px;  /* Réduit la taille des boutons sur petits écrans */
+        font-size: 20px;
+    }
+}
+
+/* Lightbox - affichage d'image en plein écran */
+.lightbox {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 10; /* Au-dessus de tous les autres éléments */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Fond noir transparent */
+}
+
+.lightbox-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%; /* S'assure que l'image ne dépasse pas la taille de l'écran */
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lightbox-content {
+    transition: transform 0.3s ease-in-out; /* Ajoute une légère transition lors de l'ouverture */
+}
+/* Style pour l'image dans le carousel */
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; /* Indique que l'image est cliquable */
+}
+
+/* Style pour l'overlay qui contient l'icône et le texte */
+.clickable-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    opacity: 0; /* Invisible par défaut */
+    transition: opacity 0.3s ease; /* Effet de fondu */
+}
+
+.image-wrapper:hover .clickable-overlay {
+    opacity: 1; /* Visible au survol */
+}
+
+.clickable-overlay .icon {
+    font-size: 30px; /* Taille de l'icône */
+    margin-bottom: 5px; /* Espace entre l'icône et le texte */
+}
+
+/* Effet de survol sur les images */
+.image-wrapper:hover img {
+    transform: scale(1.05); /* Zoom léger au survol */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée */
+}
